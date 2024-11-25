@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Currículo</title>
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='curriculo.svg') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h2>Cadastrar Currículo</h2>
+            </div>
+            <div class="card-body">
+                <form action="{{ url_for('create_curriculo') }}" method="post">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                    <!-- Campo Nome -->
+                    <div class="form-group mb-3">
+                        <label for="nome">Nome:</label>
+                        <input type="text" id="nome" name="nome" class="form-control" value="{{ nome or '' }}" required>
+                        {% if errors and errors.get('nome') %}
+                            <div class="text-danger mt-1">{{ errors.get('nome') }}</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Campo Telefone -->
+                    <div class="form-group mb-3">
+                        <label for="telefone">Telefone:</label>
+                        <input type="text" id="telefone" name="telefone" class="form-control" value="{{ telefone or '' }}">
+                        {% if errors and errors.get('telefone') %}
+                            <div class="text-danger mt-1">{{ errors.get('telefone') }}</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Campo E-mail -->
+                    <div class="form-group mb-3">
+                        <label for="email">E-mail:</label>
+                        <input type="email" id="email" name="email" class="form-control" value="{{ email or '' }}" required>
+                        {% if errors and errors.get('email') %}
+                            <div class="text-danger mt-1">{{ errors.get('email') }}</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Campo Endereço Físico -->
+                    <div class="form-group mb-3">
+                        <label for="endereco_fisico">Endereço Físico:</label>
+                        <input type="text" id="endereco_fisico" name="endereco_fisico" class="form-control" value="{{ endereco_fisico or '' }}">
+                    </div>
+
+                    <!-- Campo Experiência -->
+                    <div class="form-group mb-3">
+                        <label for="experiencia">Experiência Profissional:</label>
+                        <textarea id="experiencia" name="experiencia" class="form-control" rows="4" required>{{ experiencia or '' }}</textarea>
+                        {% if errors and errors.get('experiencia') %}
+                            <div class="text-danger mt-1">{{ errors.get('experiencia') }}</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Botões -->
+                    <button type="submit" class="btn btn-success">Cadastrar</button>
+                    <a href="{{ url_for('index') }}" class="btn btn-secondary">Voltar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
